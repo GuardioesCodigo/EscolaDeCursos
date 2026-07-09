@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="EscolaDeCursos.Aplicacao/EscolaDeCursos.Aplicacao.csproj" />
+  <Project Path="EscolaDeCursos.Dominio/EscolaDeCursos.Dominio.csproj" />
+  <Project Path="EscolaDeCursos.Infra/EscolaDeCursos.Infra.csproj" />
+  <Project Path="EscolaDeCursos.WebApp/EscolaDeCursos.WebApp.csproj" />
+</Solution>
