@@ -18,7 +18,7 @@ public class ServicoTurma : ServicoBase<Turma>
 
     public Result Cadastrar(CadastrarTurmaDto dto)
     {
-        Turma turma = new Turma(dto.CursoId, dto.InstrutorId, dto.DataInicio, dto.DataTermino, dto.CapacidadeAlunos);
+        Turma turma = new Turma(dto.CursoId, dto.InstrutorId, dto.DataInicio, dto.DataTermino, dto.CapacidadeAlunos,dto.Nome);
 
         Result resultadoValidacao = ValidarEntidade(turma);
 
@@ -32,7 +32,7 @@ public class ServicoTurma : ServicoBase<Turma>
 
     public Result Editar(EditarTurmaDto dto)
     {
-        Turma turma = new Turma(dto.CursoId, dto.InstrutorId, dto.DataInicio, dto.DataTermino, dto.CapacidadeAlunos);
+        Turma turma = new Turma(dto.CursoId, dto.InstrutorId, dto.DataInicio, dto.DataTermino, dto.CapacidadeAlunos, dto.Nome);
 
         Result resultadoValidacao = ValidarEntidade(turma);
 
