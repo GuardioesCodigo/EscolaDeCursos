@@ -2,6 +2,7 @@ using FluentResults;
 using EscolaDeCursos.Aplicacao.Compartilhado;
 using EscolaDeCursos.Dominio.Modulos.ModuloTurma;
 using EscolaDeCursos.Dominio.Modulos.ModuloInstrutor;
+using EscolaDeCursos.Dominio.Modulos.ModuloCurso;
 
 namespace EscolaDeCursos.Aplicacao.Modulos.ModuloTurma;
 
@@ -9,11 +10,13 @@ public class ServicoTurma : ServicoBase<Turma>
 {
     private readonly IRepositorioTurma repositorioTurma;
     private readonly IRepositorioInstrutor repositorioInstrutor;
+    private readonly IRepositorioCurso repositorioCurso;
 
-    public ServicoTurma(IRepositorioTurma repositorioTurma, IRepositorioInstrutor repositorioInstrutor)
+    public ServicoTurma(IRepositorioTurma repositorioTurma, IRepositorioInstrutor repositorioInstrutor, IRepositorioCurso repositorioCurso)
     {
         this.repositorioTurma = repositorioTurma;
         this.repositorioInstrutor = repositorioInstrutor;
+        this.repositorioCurso = repositorioCurso;
     }
 
     public Result Cadastrar(CadastrarTurmaDto dto)
@@ -69,7 +72,7 @@ public class ServicoTurma : ServicoBase<Turma>
                 return new ListarTurmaDto(
                     t.Id,
                     t.Nome,
-                    curso?.Nome ?? "Curso não encontrado",
+                    curso?.Titulo ?? "Curso não encontrado",
                     instrutor?.Nome ?? "Instrutor não encontrado",
                     t.DataInicio,
                     t.DataTermino,
@@ -92,7 +95,7 @@ public class ServicoTurma : ServicoBase<Turma>
         return Result.Ok(new DetalhesTurmaDto(
             turma.Id,
             turma.Nome,
-            curso?.Nome ?? "Curso não encontrado",
+            curso?.Titulo ?? "Curso não encontrado",
             instrutor?.Nome ?? "Instrutor não encontrado",
             turma.DataInicio,
             turma.DataTermino,
