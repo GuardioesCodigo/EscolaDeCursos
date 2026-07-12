@@ -16,6 +16,8 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageReference Include="Serilog.Sinks.NewRelic.Logs" Version="1.3.0" />
+    <ProjectReference Include="..\EscolaDeCursos.Dominio\EscolaDeCursos.Dominio.csproj" />
+
   </ItemGroup>
 
   <ItemGroup>

@@ -18,7 +18,7 @@ public static class InjecaoDependencia
             options.ViewLocationFormats.Add("/Modulos/Modulo{1}/Apresentacao/Views/{0}.cshtml");
 
             // Localização das Views compartilhadas: /Compartilhado/Apresentacao/Views/_Layout.cshtml
-            options.ViewLocationFormats.Add("/Compartilhado/Apresentacao/Views/{0}.cshtml");
+            options.ViewLocationFormats.Add("/Compartilhado/Views/{0}.cshtml");
         });
 
         services.AddAutoMapper(mapperConfig =>
