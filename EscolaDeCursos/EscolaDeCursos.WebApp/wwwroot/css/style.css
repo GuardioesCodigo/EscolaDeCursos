@@ -1,0 +1,164 @@
+/* ===========================
+   ESTILOS GERAIS
+=========================== */
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7fb;
+    color: #343a40;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===========================
+   NAVBAR
+=========================== */
+
+.navbar-escola {
+    background: linear-gradient(90deg, #0d6efd, #0b5ed7);
+    padding: 12px 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.15);
+}
+
+.navbar-escola .navbar-brand {
+    color: white;
+    font-size: 1.4rem;
+    transition: .3s;
+}
+
+.navbar-escola .navbar-brand:hover {
+    color: #dbe8ff;
+}
+
+.navbar-escola .nav-link {
+    color: rgba(255,255,255,.9);
+    font-weight: 500;
+    margin-left: 10px;
+    border-radius: 6px;
+    transition: .3s;
+    padding: 8px 14px;
+}
+
+.navbar-escola .nav-link:hover {
+    background-color: rgba(255,255,255,.18);
+    color: white;
+}
+
+/* ===========================
+   TÍTULO
+=========================== */
+
+header.container h2 {
+    color: #0d6efd;
+    font-weight: bold;
+    border-left: 6px solid #0d6efd;
+    padding-left: 15px;
+}
+
+/* ===========================
+   CONTEÚDO
+=========================== */
+
+.conteudo-principal {
+    flex: 1;
+    padding: 30px;
+}
+
+/* Cartões */
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,.08);
+}
+
+/* ===========================
+   TABELAS
+=========================== */
+
+.table {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.table tbody tr:hover {
+    background-color: #eef5ff;
+}
+
+/* ===========================
+   BOTÕES
+=========================== */
+
+.btn-primary {
+    border-radius: 8px;
+    padding: 8px 18px;
+}
+
+.btn-success,
+.btn-danger,
+.btn-warning {
+    border-radius: 8px;
+}
+
+/* ===========================
+   FORMULÁRIOS
+=========================== */
+
+.form-control,
+.form-select {
+    border-radius: 8px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 .2rem rgba(13,110,253,.2);
+}
+
+/* ===========================
+   RODAPÉ
+=========================== */
+
+.rodape-escola {
+    background-color: #0d6efd;
+    color: white;
+    text-align: center;
+    padding: 18px;
+    margin-top: auto;
+    box-shadow: 0 -2px 8px rgba(0,0,0,.15);
+}
+
+.rodape-escola p {
+    margin: 0;
+}
+
+/* ===========================
+   RESPONSIVIDADE
+=========================== */
+
+@media (max-width: 768px) {
+
+    .navbar-nav {
+        margin-top: 15px;
+    }
+
+    .navbar-escola .nav-link {
+        margin: 4px 0;
+    }
+
+    .conteudo-principal {
+        padding: 20px;
+    }
+}
