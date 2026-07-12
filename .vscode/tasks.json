@@ -1,0 +1,37 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "sqlproj: Build EscolaDeCursos",
+			"type": "process",
+			"command": "dotnet",
+			"args": [
+				"build",
+				"c:/Users/Cliente/Desktop/AcademiaProgramador/MODULO4/EscolaDeCursos/EscolaDeCursos/EscolaDeCursos/EscolaDeCursos.sqlproj"
+			],
+			"problemMatcher": "$sqlproj-problem-matcher",
+			"isBackground": true,
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"detail": "Builds the EscolaDeCursos SQL project"
+		},
+		{
+			"label": "sqlproj: Build EscolaDeCursosDB",
+			"type": "process",
+			"command": "dotnet",
+			"args": [
+				"build",
+				"c:/Users/Cliente/Desktop/AcademiaProgramador/MODULO4/EscolaDeCursos/EscolaDeCursos/EscolaDeCursosDB/EscolaDeCursosDB.sqlproj"
+			],
+			"problemMatcher": "$sqlproj-problem-matcher",
+			"isBackground": true,
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"detail": "Builds the EscolaDeCursosDB SQL project"
+		}
+	]
+}
