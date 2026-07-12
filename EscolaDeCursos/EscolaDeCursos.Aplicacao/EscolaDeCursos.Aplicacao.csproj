@@ -22,6 +22,9 @@
 
   <ItemGroup>
     <Folder Include="Modulos\ModuloCategoria\" />
+    <Folder Include="Modulos\ModuloInstrutor\" />
+    <Folder Include="Modulos\ModuloMatricula\" />
+    <Folder Include="Modulos\ModuloTurma\" />
   </ItemGroup>
 
 </Project>
