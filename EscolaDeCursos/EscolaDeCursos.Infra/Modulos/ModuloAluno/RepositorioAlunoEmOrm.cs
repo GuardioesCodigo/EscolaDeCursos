@@ -17,5 +17,8 @@ public sealed class RepositorioAlunoEmOrm(EscolaDeCursosDbContext dbContext) :
         return base.Filtrar(filtro).OrderBy(a => a.Nome).ToList();
     }
 
-    
+    public Aluno? SelecionarPorCpf(string cpf)
+    {
+        return registros.SingleOrDefault(a => a.Cpf == cpf);
+    }
 }

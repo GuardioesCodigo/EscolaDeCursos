@@ -25,7 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modulos\" />
+    <Folder Include="Modulos\ModuloMatricula\" />
+    <Folder Include="Modulos\ModuloTurma\" />
   </ItemGroup>
 
 </Project>
