@@ -15,8 +15,8 @@ public class ServicoInstrutor : ServicoBase<Instrutor>
 
     public Result Cadastrar(CadastrarInstrutorDto dto)
     {
-        if (ExisteCpf(dto.Email))
-            return Falha(nameof(dto.Email), "Já existe um instrutor cadastrado com este CPF.");
+        if (ExisteCpf(dto.Cpf))
+            return Falha(nameof(dto.Cpf), "Já existe um instrutor cadastrado com este CPF.");
 
         Instrutor instrutor = new Instrutor(dto.Nome, dto.Cpf, dto.Email);
 
@@ -32,8 +32,8 @@ public class ServicoInstrutor : ServicoBase<Instrutor>
 
     public Result Editar(EditarInstrutorDto dto)
     {
-        if (ExisteCpf(dto.Email, dto.Id))
-            return Falha(nameof(dto.Email), "Já existe um instrutor cadastrado com este CPF.");
+        if (ExisteCpf(dto.Cpf, dto.Id))
+            return Falha(nameof(dto.Cpf), "Já existe um instrutor cadastrado com este CPF.");
 
         Instrutor instrutor = new Instrutor(dto.Nome, dto.Cpf, dto.Email);
 
@@ -85,7 +85,7 @@ public class ServicoInstrutor : ServicoBase<Instrutor>
     private bool ExisteCpf(string cpf, Guid? idIgnorar = null)
     {
         return repositorioInstrutor
-            .SelecionarTodos()
-            .Any(a => a.Cpf == cpf && (!idIgnorar.HasValue || a.Id != idIgnorar.Value));
+            .Filtrar(a => a.Cpf == cpf && (!idIgnorar.HasValue || a.Id != idIgnorar.Value))
+            .Any();
     }
 }

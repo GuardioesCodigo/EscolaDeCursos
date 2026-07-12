@@ -62,21 +62,21 @@ public class ServicoTurma : ServicoBase<Turma>
 
     public List<ListarTurmaDto> SelecionarTodos()
     {
-        return repositorioTurma
-            .SelecionarTodos()
+        List<Turma> turmas = repositorioTurma.SelecionarTodos();
+        List<Curso> cursos = repositorioCurso.SelecionarTodos();
+        List<Instrutor> instrutores = repositorioInstrutor.SelecionarTodos();
+
+        return turmas
             .Select(t =>
             {
-                Curso? curso = repositorioCurso.SelecionarPorId(t.CursoId);
-                Instrutor? instrutor = repositorioInstrutor.SelecionarPorId(t.InstrutorId);
+                Curso? curso = cursos.FirstOrDefault(c => c.Id == t.CursoId);
+                Instrutor? instrutor = instrutores.FirstOrDefault(i => i.Id == t.InstrutorId);
 
                 return new ListarTurmaDto(
-                    t.Id,
-                    t.Nome,
+                    t.Id, t.Nome,
                     curso?.Titulo ?? "Curso não encontrado",
                     instrutor?.Nome ?? "Instrutor não encontrado",
-                    t.DataInicio,
-                    t.DataTermino,
-                    t.CapacidadeAlunos
+                    t.DataInicio, t.DataTermino, t.CapacidadeAlunos
                 );
             })
             .ToList();

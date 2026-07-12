@@ -86,7 +86,7 @@ public class ServicoAluno : ServicoBase<Aluno>
     private bool ExisteCpf(string cpf, Guid? idIgnorar = null)
     {
         return repositorioAluno
-            .SelecionarTodos()
-            .Any(a => a.Cpf == cpf && (!idIgnorar.HasValue || a.Id != idIgnorar.Value));
+            .Filtrar(a => a.Cpf == cpf && (!idIgnorar.HasValue || a.Id != idIgnorar.Value))
+            .Any();
     }
 }

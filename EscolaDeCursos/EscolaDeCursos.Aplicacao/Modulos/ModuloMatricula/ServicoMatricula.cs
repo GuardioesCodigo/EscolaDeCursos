@@ -92,12 +92,15 @@ public class ServicoMatricula : ServicoBase<Matricula>
 
     public List<ListarMatriculaDto> SelecionarTodos()
     {
-        return repositorioMatricula
-            .SelecionarTodos()
+        List<Matricula> matriculas = repositorioMatricula.SelecionarTodos();
+        List<Aluno> alunos = repositorioAluno.SelecionarTodos();
+        List<Turma> turmas = repositorioTurma.SelecionarTodos();
+
+        return matriculas
             .Select(m =>
             {
-                Aluno? aluno = repositorioAluno.SelecionarPorId(m.AlunoId);
-                Turma? turma = repositorioTurma.SelecionarPorId(m.TurmaId);
+                Aluno? aluno = alunos.FirstOrDefault(a => a.Id == m.AlunoId);
+                Turma? turma = turmas.FirstOrDefault(t => t.Id == m.TurmaId);
 
                 return new ListarMatriculaDto(
                     m.Id,
@@ -132,15 +135,14 @@ public class ServicoMatricula : ServicoBase<Matricula>
     private bool ExisteMatriculaNaTurma(Guid alunoId, Guid turmaId)
     {
         return repositorioMatricula
-            .SelecionarTodos()
-            .Any(m => m.AlunoId == alunoId && m.TurmaId == turmaId);
+            .Filtrar(m => m.AlunoId == alunoId && m.TurmaId == turmaId)
+            .Any();
     }
 
     private int MatriculasAtivasNaTurma(Guid turmaId)
     {
         return repositorioMatricula
-            .SelecionarTodos()
-            .Count(m => m.TurmaId == turmaId &&
-                        m.Situacao == SituacaoMatricula.Ativa);
+            .Filtrar(m => m.TurmaId == turmaId && m.Situacao == SituacaoMatricula.Ativa)
+            .Count();
     }
 }
