@@ -14,9 +14,9 @@ public static class InjecaoDependencia
         IConfiguration configuration
     )
     {
-        // services.AddScoped<ServicoInstrutor>();
-        // services.AddScoped<ServicoAluno>();
+        services.AddScoped<ServicoInstrutor>();
+        services.AddScoped<ServicoAluno>();
         // services.AddScoped<ServicoTurma>();
-        // services.AddScoped<ServicoMatricula>();
+        services.AddScoped<ServicoMatricula>();
     }
 }
