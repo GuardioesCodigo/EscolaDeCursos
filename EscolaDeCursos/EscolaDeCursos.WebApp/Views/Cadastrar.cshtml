@@ -1,0 +1,30 @@
+@using EscolaDeCursos.Dominio.Modulos.ModuloCurso
+@model EscolaDeCursos.Aplicacao.Modulos.ModuloCurso.CadastrarCursoDto
+
+
+<h2>Cadastrar Novo Curso</h2>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label>Título:</label>
+        <input asp-for="Titulo" />
+    </div>
+    <div>
+        <label>Descrição:</label>
+        <textarea asp-for="Descricao"></textarea>
+    </div>
+    <div>
+        <label>Carga Horária:</label>
+        <input asp-for="CargaHoraria" type="number" />
+    </div>
+    <div>
+        <label>Nível:</label>
+        <select asp-for="Nivel" asp-items="Html.GetEnumSelectList<NivelCurso>()"></select>
+    </div>
+    <div>
+        <label>Categoria:</label>
+        <select asp-for="CategoriaId" asp-items="ViewBag.Categorias"></select>
+    </div>
+    
+    <button type="submit">Salvar Curso</button>
+</form>

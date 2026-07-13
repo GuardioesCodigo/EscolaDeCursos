@@ -1,0 +1,27 @@
+@model IEnumerable<EscolaDeCursos.Aplicacao.Modulos.ModuloCurso.ListarCursoDto>
+
+<h2>Cursos Cadastrados</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Categoria</th>
+            <th>Nível</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>@item.Titulo</td>
+                <td>@item.CategoriaNome</td>
+                <td>@item.Nivel</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
