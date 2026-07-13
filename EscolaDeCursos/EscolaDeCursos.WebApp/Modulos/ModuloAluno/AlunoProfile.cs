@@ -1,4 +1,3 @@
-using System;
 using AutoMapper;
 using EscolaDeCursos.Aplicacao.Modulos.ModuloAluno;
 
@@ -12,7 +11,7 @@ public class AlunoProfile : Profile
         CreateMap<EditarAlunoViewModel, EditarAlunoDto>();
         CreateMap<ListarAlunosDto, ListarAlunoViewModel>();
         CreateMap<DetalhesAlunoDto, DetalhesAlunoViewModel>();
+        CreateMap<DetalhesAlunoDto, EditarAlunoViewModel>();
         CreateMap<DetalhesAlunoDto, ExcluirAlunoViewModel>();
     }
-
 }

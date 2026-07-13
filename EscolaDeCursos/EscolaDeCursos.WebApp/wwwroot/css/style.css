@@ -66,8 +66,8 @@ header.container h2 {
 =========================== */
 
 .conteudo-principal {
+    padding: 1rem 1.5rem;
     flex: 1;
-    padding: 30px;
 }
 
 /* Cartões */
@@ -161,4 +161,421 @@ header.container h2 {
     .conteudo-principal {
         padding: 20px;
     }
+}
+
+/* ================================================================ */
+                    /* ===== Views CRUD ===== */
+/* ================================================================ */
+
+/* ===== Reset básico ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #2b2b2b;
+    background-color: #f7f7fb;
+}
+
+/* ===== Navbar ===== */
+.navbar-escola {
+    background-color: #1e3a5f;
+    padding: 1rem 1.5rem;
+}
+
+.navbar-escola .navbar-brand {
+    color: #ffffff;
+    font-size: 1.4rem;
+    text-decoration: none;
+}
+
+.navbar-escola .nav-link {
+    color: #dce6f0;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: color 0.2s ease;
+}
+
+.navbar-escola .nav-link:hover {
+    color: #ffffff;
+}
+
+/* ===== Conteúdo principal ===== */
+.conteudo-principal {
+    padding: 2rem 1.5rem;
+}
+
+/* ===== Hero (banner de topo) ===== */
+.hero {
+    background-color: #2c5282;
+    color: #ffffff;
+    padding: 3rem 1.5rem;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 2.5rem;
+}
+
+.hero h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    color: #e2e8f0;
+}
+
+/* ===== Módulos ===== */
+.modulos h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #1e3a5f;
+    text-align: center;
+}
+
+.modulos-grade {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.modulo-card {
+    display: block;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-top: 4px solid #2c5282;
+}
+
+.modulo-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.modulo-card h3 {
+    color: #1e3a5f;
+    margin-bottom: 0.5rem;
+}
+
+.modulo-card p {
+    color: #555555;
+    font-size: 0.95rem;
+}
+
+/* Cores diferentes por módulo */
+.modulo-aluno {
+    border-top-color: #2f855a;
+}
+
+.modulo-instrutor {
+    border-top-color: #c05621;
+}
+
+.modulo-turma {
+    border-top-color: #6b46c1;
+}
+
+.modulo-matricula {
+    border-top-color: #2b6cb0;
+}
+
+/* ===== Página de listagem ===== */
+.botao-cadastrar {
+    display: inline-block;
+    background-color: #2c5282;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease;
+}
+
+.botao-cadastrar:hover {
+    background-color: #1e3a5f;
+    color: #ffffff;
+}
+
+.separador {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin-bottom: 2rem;
+}
+
+.cards-grade {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.card-registro {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.card-registro h3 {
+    color: #1e3a5f;
+    margin-bottom: 0.75rem;
+}
+
+.card-registro p {
+    color: #555555;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+}
+
+.card-rodape {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #f0f0f0;
+}
+
+.card-acoes a {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 1.1rem;
+    margin-right: 0.5rem;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+}
+
+.card-acoes .acao-editar:hover {
+    background-color: #ebf4ff;
+}
+
+.card-acoes .acao-excluir:hover {
+    background-color: #fff5f5;
+}
+
+.card-id {
+    color: #999999;
+    font-size: 0.85rem;
+}
+
+/* ===== Formulários (Cadastrar / Editar) ===== */
+.form-registro {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 2rem;
+    max-width: 500px;
+    margin: 1rem auto;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.campo-grupo {
+    margin-bottom: 1.25rem;
+}
+
+.campo-grupo label {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: #1e3a5f;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.campo-grupo input,
+.campo-grupo select {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    color: #2b2b2b;
+}
+
+.campo-grupo input:focus,
+.campo-grupo select:focus {
+    outline: none;
+    border-color: #2c5282;
+}
+
+.campo-erro {
+    color: #c53030;
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+    display: block;
+}
+
+.resumo-erros {
+    background-color: #fff5f5;
+    border: 1px solid #feb2b2;
+    color: #c53030;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-acoes {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.botao-salvar {
+    background-color: #2c5282;
+    color: #ffffff;
+    border: none;
+    padding: 0.1rem 1.5rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.botao-salvar:hover {
+    background-color: #1e3a5f;
+}
+
+.botao-cancelar {
+    background-color: #f0f0f0;
+    color: #2b2b2b;
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+.botao-cancelar:hover {
+    background-color: #e0e0e0;
+}
+
+/* ===== Confirmação (Excluir / Cancelar / Concluir) ===== */
+.card-confirmacao {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 2rem;
+    max-width: 500px;
+    margin: 2rem auto;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.card-confirmacao p {
+    color: #555555;
+    margin-bottom: 0.4rem;
+}
+
+.card-confirmacao .aviso-confirmacao {
+    color: #c05621;
+    font-weight: 600;
+    margin: 1rem 0;
+}
+
+/* ===== Botão voltar ===== */
+.botao-voltar {
+    display: inline-flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    color: #2b2b2b;
+    text-decoration: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    transition: background-color 0.2s ease;
+}
+
+.botao-voltar:hover {
+    background-color: #e0e0e0;
+}
+
+/* ===== Alertas ===== */
+.alerta-erro {
+    background-color: #fff5f5;
+    border-left: 4px solid #c53030;
+    color: #c53030;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.alerta-vazio {
+    background-color: #ebf4ff;
+    border-left: 4px solid #2c5282;
+    color: #1e3a5f;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.alerta-perigo {
+    background-color: #fff5f5;
+    border-left: 4px solid #c53030;
+    color: #9b2c2c;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+/* ===== Badge de Id ===== */
+.id-badge {
+    background-color: #2c5282;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.card-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+/* ===== Botão excluir (perigo) ===== */
+.botao-excluir {
+    background-color: #c53030;
+    color: #ffffff;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.botao-excluir:hover {
+    background-color: #9b2c2c;
+}
+
+/* ===== Rodapé ===== */
+.rodape-escola {
+    text-align: center;
+    padding: 1.5rem;
+    color: #777777;
+    font-size: 0.9rem;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 3rem;
+}
+
+.validation-summary-valid {
+    display: none;
 }

@@ -1,0 +1,46 @@
+﻿@using EscolaDeCursos.WebApp.Modulos.ModuloAluno
+@{
+    Layout = "_Layout";
+}
+
+@model List<ListarAlunoViewModel>
+
+<a asp-action="Cadastrar" class="botao-cadastrar">+ Cadastrar novo(a)</a>
+
+@if (TempData["MensagemErro"] is string mensagemErro)
+{
+    <div class="alerta-erro">@mensagemErro</div>
+}
+
+@if (Model.Count == 0)
+{
+    <div class="alerta-vazio">Nenhum aluno cadastrado.</div>
+}
+else
+{
+    <div class="cards-grade">
+
+        @foreach (ListarAlunoViewModel aluno in Model)
+        {
+            <div class="card-registro">
+
+                <div class="card-cabecalho">
+                    <h3>@aluno.Nome</h3>
+                    <span class="id-badge">@aluno.Id.ToString().Substring(0, 8)</span>
+                </div>
+
+                <p>CPF: @aluno.Cpf</p>
+                <p>Email: @aluno.Email</p>
+
+                <div class="card-rodape">
+                    <div class="card-acoes">
+                        <a asp-action="Editar" asp-route-id="@aluno.Id" class="acao-editar" title="Editar">✏️</a>
+                        <a asp-action="Excluir" asp-route-id="@aluno.Id" class="acao-excluir" title="Excluir">🗑️</a>
+                    </div>
+                </div>
+
+            </div>
+        }
+
+    </div>
+}
