@@ -3,4 +3,7 @@ using EscolaDeCursos.Dominio.Compartilhado;
 
 namespace EscolaDeCursos.Dominio.Modulos.ModuloAluno;
 
-public interface IRepositorioAluno : IRepositorio<Aluno>;
+public interface IRepositorioAluno : IRepositorio<Aluno>
+{
+    public Aluno SelecionarPorCpf(string cpf);
+}
