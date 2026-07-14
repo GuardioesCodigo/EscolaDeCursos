@@ -1,0 +1,41 @@
+﻿@using EscolaDeCursos.WebApp.Modulos.ModuloMatricula
+@{
+    Layout = "_Layout";
+}
+
+@model DetalhesMatriculaViewModel
+
+<a asp-action="Listar" class="botao-voltar">&larr; Voltar</a>
+
+@if (TempData["MensagemErro"] is string mensagemErro)
+{
+    <div class="alerta-erro">@mensagemErro</div>
+}
+
+<div class="card-confirmacao">
+
+    <div class="card-cabecalho">
+        <h3>@Model.NomeAluno</h3>
+        <span class="id-badge">@Model.Situacao</span>
+    </div>
+
+    <p><strong>Turma:</strong> @Model.NomeTurma</p>
+    <p><strong>Data Matrícula:</strong> @Model.DataMatricula.ToString(format: "dd/MM/yyyy")</p>
+
+    <div class="form-acoes">
+
+        <form asp-action="Concluir" method="post">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <button type="submit" class="botao-salvar">Concluir Matrícula</button>
+        </form>
+
+        <form asp-action="Cancelar" method="post">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <button type="submit" class="botao-excluir">Cancelar Matrícula</button>
+        </form>
+
+        <a asp-action="Excluir" asp-route-id="@Model.Id" class="botao-cancelar">Excluir</a>
+
+    </div>
+
+</div>

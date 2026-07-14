@@ -1,0 +1,46 @@
+@using EscolaDeCursos.WebApp.Modulos.ModuloMatricula
+@{
+    Layout = "_Layout";
+}
+
+@model List<ListarMatriculaViewModel>
+
+<a asp-action="Cadastrar" class="botao-cadastrar">+ Cadastrar novo(a)</a>
+
+@if (TempData["MensagemErro"] is string mensagemErro)
+{
+    <div class="alerta-erro">@mensagemErro</div>
+}
+
+@if (Model.Count == 0)
+{
+    <div class="alerta-vazio">Nenhuma matrícula cadastrada.</div>
+}
+else
+{
+    <div class="cards-grade">
+
+        @foreach (ListarMatriculaViewModel matricula in Model)
+        {
+            <div class="card-registro">
+
+                <div class="card-cabecalho">
+                    <h3>@matricula.NomeAluno</h3>
+                    <span class="id-badge">@matricula.Situacao</span>
+                </div>
+
+                <p>Turma: @matricula.NomeTurma</p>
+                <p>Data Matrícula: @matricula.DataMatricula.ToString(format: "dd/MM/yyyy")</p>
+
+                <div class="card-rodape">
+                    <div class="card-acoes">
+                        <a asp-action="Detalhes" asp-route-id="@matricula.Id" title="Visualizar">🔍</a>
+                        <a asp-action="Excluir" asp-route-id="@matricula.Id" class="acao-excluir" title="Excluir">🗑️</a>
+                    </div>
+                </div>
+
+            </div>
+        }
+
+    </div>
+}

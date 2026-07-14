@@ -1,13 +1,21 @@
 using AutoMapper;
 using EscolaDeCursos.Aplicacao.Modulos.ModuloMatricula;
+using EscolaDeCursos.Aplicacao.Modulos.ModuloAluno;
+using EscolaDeCursos.Aplicacao.Modulos.ModuloTurma;
 using EscolaDeCursos.WebApp.Compartilhado.Extensions;
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EscolaDeCursos.WebApp.Modulos.ModuloMatricula;
 
-public class MatriculaController(IMapper mapeador, ServicoMatricula servicoMatricula) : Controller
+public class MatriculaController(
+    IMapper mapeador,
+    ServicoMatricula servicoMatricula,
+    ServicoAluno servicoAluno,
+    ServicoTurma servicoTurma) : Controller
 {
+    
     [HttpGet]
     public ActionResult Listar()
     {
@@ -21,6 +29,8 @@ public class MatriculaController(IMapper mapeador, ServicoMatricula servicoMatri
     [HttpGet]
     public ActionResult Cadastrar()
     {
+        CarregarSelecaoListas();
+
         CadastrarMatriculaViewModel cadastrarVm = new(Guid.Empty, Guid.Empty);
 
         return View(cadastrarVm);
@@ -30,7 +40,10 @@ public class MatriculaController(IMapper mapeador, ServicoMatricula servicoMatri
     public ActionResult Cadastrar(CadastrarMatriculaViewModel cadastrarVm)
     {
         if (!ModelState.IsValid)
+        {
+            CarregarSelecaoListas();
             return View(cadastrarVm);
+        }
 
         CadastrarMatriculaDto dto = mapeador.Map<CadastrarMatriculaDto>(cadastrarVm);
         Result resultado = servicoMatricula.Cadastrar(dto);
@@ -47,6 +60,7 @@ public class MatriculaController(IMapper mapeador, ServicoMatricula servicoMatri
                 ModelState.AddModelError(campo, erro.Message);
             }
 
+            CarregarSelecaoListas();
             return View(cadastrarVm);
         }
 
@@ -61,7 +75,6 @@ public class MatriculaController(IMapper mapeador, ServicoMatricula servicoMatri
         if (resultado.IsFailed)
         {
             TempData.AddErrorMessage(resultado);
-
             return RedirectToAction(nameof(Listar));
         }
 
@@ -78,7 +91,6 @@ public class MatriculaController(IMapper mapeador, ServicoMatricula servicoMatri
         if (resultado.IsFailed)
         {
             TempData.AddErrorMessage(resultado);
-
             return RedirectToAction(nameof(Listar));
         }
 
@@ -98,59 +110,34 @@ public class MatriculaController(IMapper mapeador, ServicoMatricula servicoMatri
         return RedirectToAction(nameof(Listar));
     }
 
-    [HttpGet]
+    [HttpPost]
     public ActionResult Cancelar(Guid id)
     {
-        Result<DetalhesMatriculaDto> resultado = servicoMatricula.SelecionarPorId(id);
+        Result resultado = servicoMatricula.Cancelar(id);
 
         if (resultado.IsFailed)
-        {
             TempData.AddErrorMessage(resultado);
 
-            return RedirectToAction(nameof(Listar));
-        }
-
-        CancelarMatriculaViewModel cancelarVm = mapeador.Map<CancelarMatriculaViewModel>(resultado.Value);
-
-        return View(cancelarVm);
+        return RedirectToAction(nameof(Detalhes), new { id });
     }
 
     [HttpPost]
-    public ActionResult Cancelar(CancelarMatriculaViewModel cancelarVm)
-    {
-        Result resultado = servicoMatricula.Cancelar(cancelarVm.Id);
-
-        if (resultado.IsFailed)
-            TempData.AddErrorMessage(resultado);
-
-        return RedirectToAction(nameof(Listar));
-    }
-
-    [HttpGet]
     public ActionResult Concluir(Guid id)
     {
-        Result<DetalhesMatriculaDto> resultado = servicoMatricula.SelecionarPorId(id);
+        Result resultado = servicoMatricula.Concluir(id);
 
         if (resultado.IsFailed)
-        {
             TempData.AddErrorMessage(resultado);
 
-            return RedirectToAction(nameof(Listar));
-        }
-
-        ConcluirMatriculaViewModel concluirVm = mapeador.Map<ConcluirMatriculaViewModel>(resultado.Value);
-
-        return View(concluirVm);
+        return RedirectToAction(nameof(Detalhes), new { id });
     }
 
-    [HttpPost]
-    public ActionResult Concluir(ConcluirMatriculaViewModel concluirVm)
+    private void CarregarSelecaoListas()
     {
-        Result resultado = servicoMatricula.Concluir(concluirVm.Id);
+        List<ListarAlunosDto> alunos = servicoAluno.SelecionarTodos();
+        List<ListarTurmaDto> turmas = servicoTurma.SelecionarTodos();
 
-        if (resultado.IsFailed)
-            TempData.AddErrorMessage(resultado);
-
-        return RedirectToAction(nameof(Listar));
+        ViewBag.Alunos = new SelectList(alunos, "Id", "Nome");
+        ViewBag.Turmas = new SelectList(turmas, "Id", "Nome");
     }
 }

@@ -1,0 +1,37 @@
+﻿@using EscolaDeCursos.WebApp.Modulos.ModuloMatricula
+@{
+    Layout = "_Layout";
+}
+
+@model CadastrarMatriculaViewModel
+
+<a asp-action="Listar" class="botao-voltar">&larr; Voltar</a>
+
+<div class="form-registro">
+    <form asp-action="Cadastrar" method="post">
+
+        <div asp-validation-summary="All" class="resumo-erros"></div>
+
+        <div class="campo-grupo">
+            <label asp-for="AlunoId">Aluno</label>
+            <select asp-for="AlunoId" asp-items="@(ViewBag.Alunos as SelectList)">
+                <option value="">Selecione um aluno</option>
+            </select>
+            <span asp-validation-for="AlunoId" class="campo-erro"></span>
+        </div>
+
+        <div class="campo-grupo">
+            <label asp-for="TurmaId">Turma</label>
+            <select asp-for="TurmaId" asp-items="@(ViewBag.Turmas as SelectList)">
+                <option value="">Selecione uma turma</option>
+            </select>
+            <span asp-validation-for="TurmaId" class="campo-erro"></span>
+        </div>
+
+        <div class="form-acoes">
+            <button type="submit" class="botao-salvar">Cadastrar</button>
+            <a asp-action="Listar" class="botao-cancelar">Cancelar</a>
+        </div>
+
+    </form>
+</div>
