@@ -1,0 +1,20 @@
+CREATE TABLE [dbo].[TBInstrutor] (
+    [Id]    UNIQUEIDENTIFIER NOT NULL,
+    [NOME]  NVARCHAR (100)   NOT NULL,
+    [CPF]   NVARCHAR (14)    NOT NULL,
+    [EMAIL] NVARCHAR (250)   NOT NULL
+);
+GO
+
+ALTER TABLE [dbo].[TBInstrutor]
+    ADD CONSTRAINT [PK_TBInstrutor] PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_TBInstrutor_Email]
+    ON [dbo].[TBInstrutor]([EMAIL] ASC);
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_TBInstrutor_Cpf]
+    ON [dbo].[TBInstrutor]([CPF] ASC);
+GO
+

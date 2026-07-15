@@ -1,0 +1,20 @@
+CREATE TABLE [dbo].[TBAluno] (
+    [Id]    UNIQUEIDENTIFIER NOT NULL,
+    [Nome]  NVARCHAR (100)   NOT NULL,
+    [Cpf]   NVARCHAR (14)    NOT NULL,
+    [Email] NVARCHAR (255)   NOT NULL
+);
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_TBAlnuo_Email]
+    ON [dbo].[TBAluno]([Email] ASC);
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_TBAlnuo_Cpf]
+    ON [dbo].[TBAluno]([Cpf] ASC);
+GO
+
+ALTER TABLE [dbo].[TBAluno]
+    ADD CONSTRAINT [PK_TBAluno] PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
