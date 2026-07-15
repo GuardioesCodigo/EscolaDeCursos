@@ -1,0 +1,30 @@
+﻿@using EscolaDeCursos.WebApp.Modulos.ModuloInstrutor
+@{
+    Layout = "_Layout";
+}
+
+@model ExcluirInstrutorViewModel
+
+<a asp-action="Listar" class="botao-voltar">&larr; Voltar</a>
+
+<div class="card-confirmacao">
+
+    <div class="alerta-perigo">
+        Esta ação é permanente e não poderá ser desfeita.
+    </div>
+
+    <div class="card-cabecalho">
+        <h3>@Model.Nome</h3>
+        <span class="id-badge">@Model.Id.ToString().Substring(0, 8)</span>
+    </div>
+
+    <p><strong>CPF:</strong> @Model.Cpf</p>
+    <p><strong>Email:</strong> @Model.Email</p>
+
+    <form asp-action="Excluir" method="post" class="form-acoes">
+        <input asp-for="Id" type="hidden" />
+        <button type="submit" class="botao-excluir">Confirmar Exclusão</button>
+        <a asp-action="Listar" class="botao-cancelar">Cancelar</a>
+    </form>
+
+</div>

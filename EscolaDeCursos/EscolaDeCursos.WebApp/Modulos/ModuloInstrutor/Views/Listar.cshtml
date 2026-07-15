@@ -1,0 +1,46 @@
+﻿@using EscolaDeCursos.WebApp.Modulos.ModuloInstrutor
+@{
+    Layout = "_Layout";
+}
+
+@model List<ListarInstrutorViewModel>
+
+<a asp-action="Cadastrar" class="botao-cadastrar">+ Cadastrar novo(a)</a>
+
+@if (TempData["MensagemErro"] is string mensagemErro)
+{
+    <div class="alerta-erro">@mensagemErro</div>
+}
+
+@if (Model.Count == 0)
+{
+    <div class="alerta-vazio">Nenhum instrutor cadastrado.</div>
+}
+else
+{
+    <div class="cards-grade">
+
+        @foreach (ListarInstrutorViewModel instrutor in Model)
+        {
+            <div class="card-registro">
+
+                <div class="card-cabecalho">
+                    <h3>@instrutor.Nome</h3>
+                    <span class="id-badge">@instrutor.Id.ToString().Substring(0, 8)</span>
+                </div>
+
+                <p>CPF: @instrutor.Cpf</p>
+                <p>Email: @instrutor.Email</p>
+
+                <div class="card-rodape">
+                    <div class="card-acoes">
+                        <a asp-action="Editar" asp-route-id="@instrutor.Id" title="Editar">✏️</a>
+                        <a asp-action="Excluir" asp-route-id="@instrutor.Id" class="acao-excluir" title="Excluir">🗑️</a>
+                    </div>
+                </div>
+
+            </div>
+        }
+
+    </div>
+}

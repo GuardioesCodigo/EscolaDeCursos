@@ -1,0 +1,63 @@
+﻿@using EscolaDeCursos.WebApp.Modulos.ModuloTurma
+@{
+    Layout = "_Layout";
+}
+
+@model EditarTurmaViewModel
+
+<a asp-action="Listar" class="botao-voltar">&larr; Voltar</a>
+
+<div class="form-registro">
+    <form asp-action="Editar" method="post">
+
+        <input asp-for="Id" type="hidden" />
+
+        <div asp-validation-summary="All" class="resumo-erros"></div>
+
+        <div class="campo-grupo">
+            <label asp-for="Nome"></label>
+            <input asp-for="Nome" />
+            <span asp-validation-for="Nome" class="campo-erro"></span>
+        </div>
+
+        <div class="campo-grupo">
+            <label asp-for="CursoId">Curso</label>
+            <select asp-for="CursoId" asp-items="@(ViewBag.Cursos as SelectList)">
+                <option value="">Selecione um curso</option>
+            </select>
+            <span asp-validation-for="CursoId" class="campo-erro"></span>
+        </div>
+
+        <div class="campo-grupo">
+            <label asp-for="InstrutorId">Instrutor</label>
+            <select asp-for="InstrutorId" asp-items="@(ViewBag.Instrutores as SelectList)">
+                <option value="">Selecione um instrutor</option>
+            </select>
+            <span asp-validation-for="InstrutorId" class="campo-erro"></span>
+        </div>
+
+        <div class="campo-grupo">
+            <label asp-for="DataInicio">Data de Início</label>
+            <input asp-for="DataInicio" type="date" />
+            <span asp-validation-for="DataInicio" class="campo-erro"></span>
+        </div>
+
+        <div class="campo-grupo">
+            <label asp-for="DataTermino">Data de Término</label>
+            <input asp-for="DataTermino" type="date" />
+            <span asp-validation-for="DataTermino" class="campo-erro"></span>
+        </div>
+
+        <div class="campo-grupo">
+            <label asp-for="CapacidadeAlunos"></label>
+            <input asp-for="CapacidadeAlunos" />
+            <span asp-validation-for="CapacidadeAlunos" class="campo-erro"></span>
+        </div>
+
+        <div class="form-acoes">
+            <button type="submit" class="botao-salvar">Salvar Alterações</button>
+            <a asp-action="Listar" class="botao-cancelar">Cancelar</a>
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,47 @@
+﻿@using EscolaDeCursos.WebApp.Modulos.ModuloTurma
+@{
+    Layout = "_Layout";
+}
+
+@model List<ListarTurmaViewModel>
+
+<a asp-action="Cadastrar" class="botao-cadastrar">+ Cadastrar novo(a)</a>
+
+@if (TempData["MensagemErro"] is string mensagemErro)
+{
+    <div class="alerta-erro">@mensagemErro</div>
+}
+
+@if (Model.Count == 0)
+{
+    <div class="alerta-vazio">Nenhuma turma cadastrada.</div>
+}
+else
+{
+    <div class="cards-grade">
+
+        @foreach (ListarTurmaViewModel turma in Model)
+        {
+            <div class="card-registro">
+
+                <div class="card-cabecalho">
+                    <h3>@turma.Nome</h3>
+                    <span class="id-badge">@turma.CapacidadeAlunos vagas</span>
+                </div>
+
+                <p>Curso: @turma.NomeCurso</p>
+                <p>Instrutor: @turma.NomeInstrutor</p>
+                <p>Início: @turma.DataInicio.ToString("dd/MM/yyyy") — Término: @turma.DataTermino.ToString("dd/MM/yyyy")</p>
+
+                <div class="card-rodape">
+                    <div class="card-acoes">
+                        <a asp-action="Editar" asp-route-id="@turma.Id" title="Editar">✏️</a>
+                        <a asp-action="Excluir" asp-route-id="@turma.Id" class="acao-excluir" title="Excluir">🗑️</a>
+                    </div>
+                </div>
+
+            </div>
+        }
+
+    </div>
+}
