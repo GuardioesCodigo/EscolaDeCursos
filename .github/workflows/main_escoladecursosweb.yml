@@ -24,9 +24,11 @@ jobs:
           dotnet-version: '10.x'
 
       - name: Build with dotnet
+        working-directory: ./EscolaDeCursos
         run: dotnet build --configuration Release
 
       - name: dotnet publish
+        working-directory: ./EscolaDeCursos
         run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
       - name: Upload artifact for deployment job
@@ -51,12 +53,14 @@ jobs:
           dotnet-version: "10.x"
 
       - name: Restore dependencies
+        working-directory: ./EscolaDeCursos
         run: dotnet restore
 
       - name: Install Entity Framework CLI
         run: dotnet tool install --global dotnet-ef
 
       - name: Apply ORM migrations to Azure SQL
+        working-directory: ./EscolaDeCursos
         env:
           AZURE_SQL_CONNECTION_STRING: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
           Infra__NewRelic__LicenseKey: ${{ secrets.NEWRELIC_LICENSE_KEY }}
@@ -98,4 +102,3 @@ jobs:
           app-name: 'EscolaDeCursosWeb'
           slot-name: 'Production'
           package: .
-          
