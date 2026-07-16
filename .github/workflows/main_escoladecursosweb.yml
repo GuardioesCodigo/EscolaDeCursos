@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - escola-de-cursos-web
+name: Build and deploy ASP.Net Core app to Azure Web App - EscolaDeCursosWeb
 
 on:
   push:
@@ -21,33 +21,19 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "10.x"
+          dotnet-version: '10.x'
 
-      # Build da Aplicação .NET
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
-      # Build do Database Project SQL Server
-      - name: Build database project
-        run: dotnet build EscolaDeCursos.Database/EscolaDeCursos.Database.sqlproj --configuration Release
-
-      # Publish da Aplicação .NET
       - name: dotnet publish
         run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
-      # Upload da aplicação .NET compilada
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
-
-      # Upload dos artefatos do banco de dados
-      - name: Upload database artifact for deployment job
-        uses: actions/upload-artifact@v4
-        with:
-          name: database-dacpac
-          path: EscolaDeCursos.Database/bin/Release/EscolaDeCursos.Database.dacpac
 
   deploy:
     runs-on: windows-latest
@@ -57,28 +43,42 @@ jobs:
       contents: read #This is required for actions/checkout
 
     steps:
-      # Download do artefato compilado .NET
+      - uses: actions/checkout@v4 # inclui os arquivos do repositório
+
+      - name: Set up .NET Core # instala o dotnet no ambiente
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.x"
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Install Entity Framework CLI
+        run: dotnet tool install --global dotnet-ef
+
+      - name: Apply ORM migrations to Azure SQL
+        env:
+          AZURE_SQL_CONNECTION_STRING: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
+          Infra__NewRelic__LicenseKey: ${{ secrets.NEWRELIC_LICENSE_KEY }}
+        run: |
+          dotnet ef database update `
+            --project EscolaDeCursos.Infra/EscolaDeCursos.Infra.csproj `
+            --startup-project EscolaDeCursos.WebApp/EscolaDeCursos.WebApp.csproj `
+            --configuration Release `
+            --connection "$env:AZURE_SQL_CONNECTION_STRING"
+
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: .net-app
-
-      # Download do artefato compilado do database project
-      - name: Download database artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: database-dacpac
-          path: database
-
-      # Login do repositório na Azure
+      
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_ACC27C8186A9449C973E2066F378C61C }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C92E88B920CC48B292B1E5570CDBDBCF }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_8BADE6A77B9644888D69C434F2D47681 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_AA65BFF1394D43468B29A2C436B6B21E }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_2858A4F3180843A683545D73A26603D3 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_2040A399916B435AADBF256A8BDB7407 }}
 
-      # Configuração das variáveis de ambiente do Azure Web App
       - name: Configure Azure Web App settings
         shell: pwsh
         run: |
@@ -87,24 +87,15 @@ jobs:
             --name "EscolaDeCursosWeb" `
             --settings `
               "ASPNETCORE_ENVIRONMENT=Production" `
-              "ConnectionStrings__SqlServer=${{ secrets.AZURE_SQL_CONNECTION_STRING }}" `
-              "Logging__NewRelic__LicenseKey=${{ secrets.NEWRELIC_LICENSE_KEY }}" `
-              "AutoMapper__LicenseKey=${{ secrets.AUTOMAPPER_LICENSE_KEY }}"
+              "ConnectionStrings__SqlServerEF=${{ secrets.AZURE_SQL_CONNECTION_STRING }}" `
+              "Infra__NewRelic__LicenseKey=${{ secrets.NEWRELIC_LICENSE_KEY }}" `
+              "Apresentacao__AutoMapper__LicenseKey=${{ secrets.AUTOMAPPER_LICENSE_KEY }}"
 
-      # Publicação do artefato do database project
-      - name: Deploy database schema
-        uses: azure/sql-action@v2.3
-        with:
-          connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-          path: database/EscolaDeCursos.Database.dacpac
-          action: Publish
-          arguments: /p:BlockOnPossibleDataLoss=true
-
-      # Publicação do artefato .NET na Azure
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: "EscolaDeCursosWeb"
-          slot-name: "Production"
+          app-name: 'EscolaDeCursosWeb'
+          slot-name: 'Production'
           package: .
+          
